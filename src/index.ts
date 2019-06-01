@@ -41,7 +41,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   };
 
   // Call the result
-  if (settings === 'false') {
+  if (settings.test === 'false') {
     const result = await request(options);
   } else {
     console.log(options);
