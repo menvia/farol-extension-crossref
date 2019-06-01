@@ -52,7 +52,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                 template = _a.sent();
                 context = {
                     DOI_BATCH_ID: item._id.toString(),
-                    TIMESTAMP: new Date(),
+                    TIMESTAMP: new Date().getTime() / 1000,
                     DEPOSITOR_NAME: settings.depositorName,
                     DEPOSITOR_EMAIL: settings.depositorEmail,
                     REGISTRANT: settings.registrant,
@@ -61,9 +61,9 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     CONFERENCE_DATE: item.event.start_on,
                     PROCEEDINGS_TITLE: "Proceedings " + item.event.name,
                     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
-                    PROCEEDINGS_PUBLICATION_YEAR: (new Date(item.event.start_on)).getFullYear(),
+                    PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     PAPER_TITLE: item.title,
-                    PAPER_PUBLICATION_YEAR: (new Date(item.event.start_on)).getFullYear(),
+                    PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     AUTHORS: [],
                     DOI: settings.prefix + '/' + item._id.toString(),
                     DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
@@ -108,7 +108,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                 return [3 /*break*/, 6];
             case 3:
                 if (!(settings.test === 'remote')) return [3 /*break*/, 5];
-                options.url = 'https://test.doi.crossref.org/servlet/deposit';
+                options.url = 'https://test.crossref.org/servlet/deposit';
                 return [4 /*yield*/, request(options)];
             case 4:
                 result = _a.sent();
