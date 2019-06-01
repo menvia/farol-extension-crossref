@@ -36,17 +36,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var Mustache = require("mustache");
+var path = require("path");
+var request = require("request-promise");
 var extension_kit_1 = require("@farol/extension-kit");
 var fs_1 = require("fs");
-var Mustache = require("mustache");
-var request = require("request-promise");
 var farolExtensionConfig = require('../farol-extension');
 var crossref = new extension_kit_1.FarolExtension(farolExtensionConfig);
 crossref.register('submission_publish', function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
     var template, context, crossrefDoc, formData, options, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, fs_1.promises.readFile('./template.xml', 'utf-8')];
+            case 0: return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, 'template.xml'), 'utf-8')];
             case 1:
                 template = _a.sent();
                 context = {};

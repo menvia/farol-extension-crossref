@@ -19,10 +19,10 @@
             <proceedings_metadata>
                 <proceedings_title>{{ PROCEEDINGS_TITLE }}</proceedings_title>
                 <publisher>
-                    <publisher_name>{{ PUBLISHER_NAME }}</publisher_name>
+                    <publisher_name>{{ PROCEEDINGS_PUBLISHER_NAME }}</publisher_name>
                 </publisher>
                 <publication_date media_type='online'>
-                    <year>{{ PUBLICATION_YEAR }}</year>
+                    <year>{{ PROCEEDINGS_PUBLICATION_YEAR }}</year>
                 </publication_date>
                 <noisbn reason='archive_volume' />
             </proceedings_metadata>
@@ -40,7 +40,7 @@
                     <title>{{ PAPER_TITLE }}</title>
                 </titles>
                 <publication_date media_type='online'>
-                    <year>{{ PUBLICATION_YEAR }}</year>
+                    <year>{{ PAPER_PUBLICATION_YEAR }}</year>
                 </publication_date>
                 <doi_data>
                     <doi>{{ DOI }}</doi>
