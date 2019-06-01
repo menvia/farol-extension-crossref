@@ -36,8 +36,8 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     return {
       SEQUENCE: (index === 0)? 'first' : 'additional',
       ROLE: author.authoring_role,
-      FIRSTNAME: author.split(',')[1],
-      LASTNAME: author.split(',')[0],    
+      FIRSTNAME: author.name.split(',')[1],
+      LASTNAME: author.name.split(',')[0],    
     };
   }); 
 

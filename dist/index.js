@@ -44,13 +44,38 @@ var fs_1 = require("fs");
 var farolExtensionConfig = require('../farol-extension');
 var crossref = new extension_kit_1.FarolExtension(farolExtensionConfig);
 crossref.register('submission_publish', function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
-    var template, context, crossrefDoc, formData, options, result;
+    var template, context, crossrefDoc, formData, options, result, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, 'template.xml'), 'utf-8')];
             case 1:
                 template = _a.sent();
-                context = {};
+                context = {
+                    DOI_BATCH_ID: item._id.toString(),
+                    TIMESTAMP: new Date(),
+                    DEPOSITOR_NAME: settings.depositorName,
+                    DEPOSITOR_EMAIL: settings.depositorEmail,
+                    REGISTRANT: settings.registrant,
+                    CONFERENCE_NAME: item.event.name,
+                    CONFERENCE_ACRONYM: item.event.short_name,
+                    CONFERENCE_DATE: item.event.start_on,
+                    PROCEEDINGS_TITLE: "Proceedings " + item.event.name,
+                    PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
+                    PROCEEDINGS_PUBLICATION_YEAR: (new Date(item.event.start_on)).getFullYear(),
+                    PAPER_TITLE: item.title,
+                    PAPER_PUBLICATION_YEAR: (new Date(item.event.start_on)).getFullYear(),
+                    AUTHORS: [],
+                    DOI: settings.prefix + '/' + item._id.toString(),
+                    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
+                };
+                context.AUTHORS = item.author.map(function (author, index) {
+                    return {
+                        SEQUENCE: (index === 0) ? 'first' : 'additional',
+                        ROLE: author.authoring_role,
+                        FIRSTNAME: author.name.split(',')[1],
+                        LASTNAME: author.name.split(',')[0],
+                    };
+                });
                 crossrefDoc = Mustache.render(template, context);
                 formData = {};
                 formData[item._id + ".xml"] = {
@@ -80,12 +105,19 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                 return [4 /*yield*/, request(options)];
             case 2:
                 result = _a.sent();
-                return [3 /*break*/, 4];
+                return [3 /*break*/, 6];
             case 3:
+                if (!'remote') return [3 /*break*/, 5];
+                options.url = 'https://test.doi.crossref.org/servlet/deposit';
+                return [4 /*yield*/, request(options)];
+            case 4:
+                result = _a.sent();
+                return [3 /*break*/, 6];
+            case 5:
                 console.log(options);
                 console.log(crossrefDoc);
-                _a.label = 4;
-            case 4: return [2 /*return*/];
+                _a.label = 6;
+            case 6: return [2 /*return*/];
         }
     });
 }); });
