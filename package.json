@@ -30,7 +30,7 @@
   },
   "version": "0.0.1",
   "dependencies": {
-    "@farol/extension-kit": "0.0.3",
+    "@farol/extension-kit": "0.0.4",
     "farol-sdk": "^1.15.22",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
