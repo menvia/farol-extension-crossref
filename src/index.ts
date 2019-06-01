@@ -74,7 +74,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   // Call the result
   if (settings.test === 'false') {
     const result = await request(options);
-  } else if ('remote'){
+  } else if (settings.test === 'remote'){
     options.url = 'https://test.doi.crossref.org/servlet/deposit';
     const result = await request(options);
   } else {
