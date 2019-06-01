@@ -1,14 +1,17 @@
-import { FarolExtension } from '@farol/extension-kit';
-import { promises as fsPromises, createReadStream } from 'fs';
 import * as Mustache from 'mustache';
+import * as path from 'path';
 import * as request from 'request-promise';
-
+import { FarolExtension } from '@farol/extension-kit';
+import { promises as fsPromises } from 'fs';
 const farolExtensionConfig = require('../farol-extension');
 const crossref = new FarolExtension(farolExtensionConfig);
 
 crossref.register('submission_publish', async (item: any, settings: any) => {
   // Load and fill the doi document template
-  const template = await fsPromises.readFile('./template.xml', 'utf-8');
+  const template = await fsPromises.readFile(
+    path.resolve(__dirname, 'template.xml'),
+    'utf-8'
+  );
   const context = {};
   const crossrefDoc = Mustache.render(template, context);
 

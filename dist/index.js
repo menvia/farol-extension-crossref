@@ -75,7 +75,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     },
                     formData: formData
                 };
-                if (!(settings === 'false')) return [3 /*break*/, 3];
+                if (!(settings.test === 'false')) return [3 /*break*/, 3];
                 return [4 /*yield*/, request(options)];
             case 2:
                 result = _a.sent();
