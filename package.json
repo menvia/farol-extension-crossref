@@ -1,0 +1,48 @@
+{
+  "name": "@farol/extension-crossref",
+  "author": {
+    "name": "Menvia Developer",
+    "email": "developer@menvia.com",
+    "url": "https://menvia.com"
+  },
+  "bugs": {
+    "url": "https://github.com/menvia/farol-extension-crossref/issues"
+  },
+  "description": "Farol Extension - Crossref",
+  "homepage": "https://github.com/menvia/farol-extension-crossref#readme",
+  "keywords": [
+    "farol",
+    "extension",
+    "crossref"
+  ],
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/menvia/farol-extension-crossref.git"
+  },
+  "scripts": {
+    "postversion": "npm publish --access public",
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "@farol/extension-kit": "0.0.3",
+    "farol-sdk": "^1.15.22",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.4",
+    "typescript": "^3.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  }
+}
