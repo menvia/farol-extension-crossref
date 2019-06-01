@@ -15,7 +15,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   );
   const context = {
     DOI_BATCH_ID: item._id.toString(),
-    TIMESTAMP: new Date(),
+    TIMESTAMP: new Date().getTime() / 1000,
     DEPOSITOR_NAME: settings.depositorName,
     DEPOSITOR_EMAIL: settings.depositorEmail,
     REGISTRANT: settings.registrant,
@@ -24,9 +24,9 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     CONFERENCE_DATE: item.event.start_on,
     PROCEEDINGS_TITLE: "Proceedings " + item.event.name,
     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
-    PROCEEDINGS_PUBLICATION_YEAR: (new Date(item.event.start_on)).getFullYear(),
+    PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
     PAPER_TITLE: item.title,
-    PAPER_PUBLICATION_YEAR: (new Date(item.event.start_on)).getFullYear(),
+    PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
     AUTHORS: [],
     DOI: settings.prefix + '/' + item._id.toString(),
     DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
@@ -75,7 +75,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   if (settings.test === 'false') {
     const result = await request(options);
   } else if (settings.test === 'remote'){
-    options.url = 'https://test.doi.crossref.org/servlet/deposit';
+    options.url = 'https://test.crossref.org/servlet/deposit';
     const result = await request(options);
   } else {
     console.log(options);
