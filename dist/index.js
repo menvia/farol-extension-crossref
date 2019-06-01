@@ -107,7 +107,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                 result = _a.sent();
                 return [3 /*break*/, 6];
             case 3:
-                if (!'remote') return [3 /*break*/, 5];
+                if (!(settings.test === 'remote')) return [3 /*break*/, 5];
                 options.url = 'https://test.doi.crossref.org/servlet/deposit';
                 return [4 /*yield*/, request(options)];
             case 4:
