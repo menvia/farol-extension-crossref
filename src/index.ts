@@ -32,14 +32,12 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
   };
 
-  context.AUTHORS = item.author.map((author: any, index: number) => {
-    return {
-      SEQUENCE: index === 0 ? 'first' : 'additional',
-      ROLE: author.authoring_role,
-      FIRSTNAME: author.name.split(',')[1],
-      LASTNAME: author.name.split(',')[0]
-    };
-  });
+  context.AUTHORS = item.author.map((author: any, index: number) => ({
+    SEQUENCE: index === 0 ? 'first' : 'additional',
+    ROLE: author.authoring_role,
+    FIRSTNAME: author.name.split(',')[1],
+    LASTNAME: author.name.split(',')[0]
+  }));
 
   const crossrefDoc = Mustache.render(template, context);
 

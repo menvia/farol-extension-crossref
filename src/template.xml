@@ -2,50 +2,50 @@
 <doi_batch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.4.2 http://www.crossref.org/schema/crossref4.4.2.xsd" 
     xmlns="http://www.crossref.org/schema/4.4.2" version="4.4.2">
     <head>
-        <doi_batch_id>{{{ DOI_BATCH_ID }}}</doi_batch_id>
-        <timestamp>{{{ TIMESTAMP }}}</timestamp>
+        <doi_batch_id>{{{DOI_BATCH_ID}}}</doi_batch_id>
+        <timestamp>{{{TIMESTAMP}}}</timestamp>
         <depositor>
-            <depositor_name>{{{ DEPOSITOR_NAME }}}</depositor_name>
-            <email_address>{{{ DEPOSITOR_EMAIL }}}</email_address>
+            <depositor_name>{{{DEPOSITOR_NAME}}}</depositor_name>
+            <email_address>{{{DEPOSITOR_EMAIL}}}</email_address>
         </depositor>
-        <registrant>{{{ REGISTRANT }}}</registrant>
+        <registrant>{{{REGISTRANT}}}</registrant>
     </head>
     <body>
         <conference>
             <event_metadata>
-                <conference_name><![CDATA[{{{ CONFERENCE_NAME }}}]]></conference_name>
-                <conference_acronym><![CDATA[{{{ CONFERENCE_ACRONYM}}}]]></conference_acronym>
-                <conference_date>{{{ CONFERENCE_DATE }}}</conference_date>
+                <conference_name><![CDATA[{{{CONFERENCE_NAME}}}]]></conference_name>
+                <conference_acronym><![CDATA[{{{CONFERENCE_ACRONYM}}}]]></conference_acronym>
+                <conference_date>{{{CONFERENCE_DATE}}}</conference_date>
             </event_metadata>
             <proceedings_metadata>
-                <proceedings_title><![CDATA[{{{ PROCEEDINGS_TITLE }}}]]></proceedings_title>
+                <proceedings_title><![CDATA[{{{PROCEEDINGS_TITLE}}}]]></proceedings_title>
                 <publisher>
-                    <publisher_name>{{{ PROCEEDINGS_PUBLISHER_NAME }}}</publisher_name>
+                    <publisher_name>{{{PROCEEDINGS_PUBLISHER_NAME}}}</publisher_name>
                 </publisher>
-                <publication_date media_type='online'>
-                    <year>{{{ PROCEEDINGS_PUBLICATION_YEAR }}}</year>
+                <publication_date media_type="online">
+                    <year>{{{PROCEEDINGS_PUBLICATION_YEAR}}}</year>
                 </publication_date>
-                <noisbn reason='archive_volume' />
+                <noisbn reason="archive_volume" />
             </proceedings_metadata>
             <!-- ============== -->
             <conference_paper>
                 <contributors>
-                    {{{ #AUTHORS }}}
-                    <person_name sequence='{{{ SEQUENCE }}}' contributor_role='{{{ ROLE }}}'>
-                        <given_name>{{{ FIRSTNAME }}}</given_name>
-                        <surname>{{{ LASTNAME }}}</surname>
+                    {{#AUTHORS}}
+                    <person_name sequence="{{{SEQUENCE}}}" contributor_role="{{{ROLE}}}">
+                        <given_name>{{{FIRSTNAME}}}</given_name>
+                        <surname>{{{LASTNAME}}}</surname>
                     </person_name>
-                    {{{ /AUTHORS }}}
+                    {{/AUTHORS}}
                 </contributors>
                 <titles>
-                    <title>{{{ PAPER_TITLE }}}</title>
+                    <title><![CDATA[{{{PAPER_TITLE}}}]]></title>
                 </titles>
-                <publication_date media_type='online'>
-                    <year>{{{ PAPER_PUBLICATION_YEAR }}}</year>
+                <publication_date media_type="online">
+                    <year>{{{PAPER_PUBLICATION_YEAR}}}</year>
                 </publication_date>
                 <doi_data>
-                    <doi>{{{ DOI }}}</doi>
-                    <resource>{{{ DOI_RESOURCE }}}</resource>
+                    <doi>{{{DOI}}}</doi>
+                    <resource>{{{DOI_RESOURCE}}}</resource>
                 </doi_data>
             </conference_paper>
         </conference>
