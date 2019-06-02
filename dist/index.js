@@ -44,7 +44,7 @@ var fs_1 = require("fs");
 var farolExtensionConfig = require('../farol-extension');
 var crossref = new extension_kit_1.FarolExtension(farolExtensionConfig);
 crossref.register('submission_publish', function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
-    var template, context, crossrefDoc, formData, options, result, result;
+    var template, context, crossrefDoc, fileName, formData, options, result, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, 'template.xml'), 'utf-8')];
@@ -77,12 +77,13 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     };
                 });
                 crossrefDoc = Mustache.render(template, context);
+                fileName = item._id + ".xml";
                 formData = {};
-                formData[item._id + ".xml"] = {
+                formData['fname'] = {
                     value: crossrefDoc,
                     options: {
-                        filename: 'doi.xml',
-                        contentType: null
+                        filename: fileName,
+                        contentType: 'text/xml'
                     }
                 };
                 options = {
@@ -94,10 +95,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                         login_passwd: settings.password
                     },
                     headers: {
-                        'Content-Type': 'multipart/form-data;',
-                        'Content-Disposition': 'form-data; name="fname"; filename="crossref_query.xml"',
-                        'Accept-Language': 'en-us',
-                        'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+                        'Content-Type': 'multipart/form-data;'
                     },
                     formData: formData
                 };
