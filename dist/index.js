@@ -59,21 +59,21 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     CONFERENCE_NAME: item.event.name,
                     CONFERENCE_ACRONYM: item.event.short_name,
                     CONFERENCE_DATE: item.event.start_on,
-                    PROCEEDINGS_TITLE: "Proceedings " + item.event.name,
+                    PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
                     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
                     PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     PAPER_TITLE: item.title,
                     PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     AUTHORS: [],
                     DOI: settings.prefix + '/' + item._id.toString(),
-                    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
+                    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
                 };
                 context.AUTHORS = item.author.map(function (author, index) {
                     return {
-                        SEQUENCE: (index === 0) ? 'first' : 'additional',
+                        SEQUENCE: index === 0 ? 'first' : 'additional',
                         ROLE: author.authoring_role,
                         FIRSTNAME: author.name.split(',')[1],
-                        LASTNAME: author.name.split(',')[0],
+                        LASTNAME: author.name.split(',')[0]
                     };
                 });
                 crossrefDoc = Mustache.render(template, context);
@@ -112,6 +112,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                 return [4 /*yield*/, request(options)];
             case 4:
                 result = _a.sent();
+                console.log(result);
                 return [3 /*break*/, 6];
             case 5:
                 console.log(options);
