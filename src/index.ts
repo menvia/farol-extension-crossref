@@ -44,12 +44,13 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   const crossrefDoc = Mustache.render(template, context);
 
   // Build the parameters to the crossref service
+  const fileName = `${item._id}.xml`;
   const formData: any = {};
-  formData[`${item._id}.xml`] = {
+  formData['fname'] = {
     value: crossrefDoc,
     options: {
-      filename: 'doi.xml',
-      contentType: null
+      filename: fileName,
+      contentType: 'text/xml'
     }
   };
   const options = {
@@ -61,12 +62,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
       login_passwd: settings.password
     },
     headers: {
-      'Content-Type': 'multipart/form-data;',
-      'Content-Disposition':
-        'form-data; name="fname"; filename="crossref_query.xml"',
-      'Accept-Language': 'en-us',
-      'content-type':
-        'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+      'Content-Type': 'multipart/form-data;'
     },
     formData: formData
   };

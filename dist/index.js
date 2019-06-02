@@ -105,6 +105,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                 return [4 /*yield*/, request(options)];
             case 2:
                 result = _a.sent();
+                console.log(result);
                 return [3 /*break*/, 6];
             case 3:
                 if (!(settings.test === 'remote')) return [3 /*break*/, 5];
