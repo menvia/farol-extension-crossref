@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<doi_batch version="4.4.0" 
-    xmlns="http://www.crossref.org/schema/4.4.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.4.0 http://www.crossref.org/schema/deposit/crossref4.4.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<doi_batch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.crossref.org/schema/4.4.2 http://www.crossref.org/schema/crossref4.4.2.xsd" 
+    xmlns="http://www.crossref.org/schema/4.4.2" version="4.4.2">
     <head>
         <doi_batch_id>{{{ DOI_BATCH_ID }}}</doi_batch_id>
         <timestamp>{{{ TIMESTAMP }}}</timestamp>

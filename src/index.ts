@@ -15,7 +15,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   );
   const context = {
     DOI_BATCH_ID: item._id.toString(),
-    TIMESTAMP: new Date().getTime() / 1000,
+    TIMESTAMP: new Date().getTime(),
     DEPOSITOR_NAME: settings.depositorName,
     DEPOSITOR_EMAIL: settings.depositorEmail,
     REGISTRANT: settings.registrant,
