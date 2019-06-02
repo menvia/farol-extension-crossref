@@ -68,14 +68,12 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     DOI: settings.prefix + '/' + item._id.toString(),
                     DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
                 };
-                context.AUTHORS = item.author.map(function (author, index) {
-                    return {
-                        SEQUENCE: index === 0 ? 'first' : 'additional',
-                        ROLE: author.authoring_role,
-                        FIRSTNAME: author.name.split(',')[1],
-                        LASTNAME: author.name.split(',')[0]
-                    };
-                });
+                context.AUTHORS = item.author.map(function (author, index) { return ({
+                    SEQUENCE: index === 0 ? 'first' : 'additional',
+                    ROLE: author.authoring_role,
+                    FIRSTNAME: author.name.split(',')[1],
+                    LASTNAME: author.name.split(',')[0]
+                }); });
                 crossrefDoc = Mustache.render(template, context);
                 fileName = item._id + ".xml";
                 formData = {};
