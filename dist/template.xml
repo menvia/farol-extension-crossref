@@ -13,12 +13,12 @@
     <body>
         <conference>
             <event_metadata>
-                <conference_name>{{{ CONFERENCE_NAME }}}</conference_name>
-                <conference_acronym>{{{ CONFERENCE_ACRONYM}}}</conference_acronym>
+                <conference_name><![CDATA[{{{ CONFERENCE_NAME }}}]]></conference_name>
+                <conference_acronym><![CDATA[{{{ CONFERENCE_ACRONYM}}}]]></conference_acronym>
                 <conference_date>{{{ CONFERENCE_DATE }}}</conference_date>
             </event_metadata>
             <proceedings_metadata>
-                <proceedings_title>{{{ PROCEEDINGS_TITLE }}}</proceedings_title>
+                <proceedings_title><![CDATA[{{{ PROCEEDINGS_TITLE }}}]]></proceedings_title>
                 <publisher>
                     <publisher_name>{{{ PROCEEDINGS_PUBLISHER_NAME }}}</publisher_name>
                 </publisher>
