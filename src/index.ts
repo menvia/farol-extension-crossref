@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as request from 'request-promise';
 import { FarolExtension } from '@farol/extension-kit';
 import { promises as fsPromises } from 'fs';
-import { config } from 'bluebird';
+
 const farolExtensionConfig = require('../farol-extension');
 const crossref = new FarolExtension(farolExtensionConfig);
 
@@ -22,24 +22,24 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     CONFERENCE_NAME: item.event.name,
     CONFERENCE_ACRONYM: item.event.short_name,
     CONFERENCE_DATE: item.event.start_on,
-    PROCEEDINGS_TITLE: "Proceedings " + item.event.name,
+    PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
     PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
     PAPER_TITLE: item.title,
     PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
     AUTHORS: [],
     DOI: settings.prefix + '/' + item._id.toString(),
-    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
-  }
+    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
+  };
 
   context.AUTHORS = item.author.map((author: any, index: number) => {
     return {
-      SEQUENCE: (index === 0)? 'first' : 'additional',
+      SEQUENCE: index === 0 ? 'first' : 'additional',
       ROLE: author.authoring_role,
       FIRSTNAME: author.name.split(',')[1],
-      LASTNAME: author.name.split(',')[0],    
+      LASTNAME: author.name.split(',')[0]
     };
-  }); 
+  });
 
   const crossrefDoc = Mustache.render(template, context);
 
@@ -74,9 +74,10 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   // Call the result
   if (settings.test === 'false') {
     const result = await request(options);
-  } else if (settings.test === 'remote'){
+  } else if (settings.test === 'remote') {
     options.url = 'https://test.crossref.org/servlet/deposit';
     const result = await request(options);
+    console.log(result);
   } else {
     console.log(options);
     console.log(crossrefDoc);
