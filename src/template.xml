@@ -32,8 +32,8 @@
                 <contributors>
 {{#AUTHORS}}
                     <person_name sequence="{{SEQUENCE}}" contributor_role="{{ROLE}}">
-                        <given_name><![CDATA[{{FIRSTNAME}}]]></given_name>
-                        <surname><![CDATA[{{LASTNAME}}]]></surname>
+                        <given_name>{{FIRSTNAME}}</given_name>
+                        <surname>{{LASTNAME}}</surname>
                     </person_name>
 {{/AUTHORS}}
                 </contributors>
