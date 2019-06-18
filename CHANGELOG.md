@@ -1,3 +1,9 @@
+## 1.0.2 / 2019.06.18
+
+#### Enhancement
+
+- Updated the information on the Readme file
+
 ## 1.0.1 / 2019.06.18
 
 #### Enhancement

@@ -1,14 +1,14 @@
-# Farol Extension for Lahar
+# Farol Extension for crossreff
 
 ## Install
 
 ### Using NPM
 
 - To install, run:
-  `npm install farol-extension-registration-custom`
+  `npm install farol/extension-crossref`
 
 - To update, run:
-  `npm update farol-extension-registration-custom`
+  `npm update farol/extension-crossref`
 
 ## Develop
 
