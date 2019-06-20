@@ -59,7 +59,6 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     CONFERENCE_NAME: item.event.name,
                     CONFERENCE_ACRONYM: item.event.short_name,
                     CONFERENCE_DATE: item.event.start_on,
-                    CONFERENCE_ISBN: item.event.isbn ? '<isbn>' + item.event.isbn + '</isbn>' : '<noisbn reason="archive_volume" />',
                     PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
                     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
                     PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
