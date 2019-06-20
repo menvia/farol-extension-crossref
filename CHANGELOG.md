@@ -1,3 +1,9 @@
+## 1.0.4 / 2019.06.20
+
+#### Fix
+
+- Properly updating code (this time on the ts file, not the js)
+
 ## 1.0.3 / 2019.06.20
 
 #### Enhancement

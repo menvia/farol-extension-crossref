@@ -62,6 +62,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
                     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
                     PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
+                    PROCEEDINGS_ISBN: item.event.isbn ? '<isbn>' + item.event.isbn + '</isbn>' : '<noisbn reason="archive_volume" />',
                     PAPER_TITLE: item.title,
                     PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     AUTHORS: [],
