@@ -1,3 +1,9 @@
+## 1.0.3 / 2019.06.20
+
+#### Enhancement
+
+- Add ISBN to the conference proccedings
+
 ## 1.0.2 / 2019.06.18
 
 #### Enhancement

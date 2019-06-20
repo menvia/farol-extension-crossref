@@ -25,7 +25,7 @@
                 <publication_date media_type="online">
                     <year>{{{PROCEEDINGS_PUBLICATION_YEAR}}}</year>
                 </publication_date>
-                <noisbn reason="archive_volume" />
+                {{{CONFERENCE_ISBN}}}
             </proceedings_metadata>
             <!-- ============== -->
             <conference_paper>
