@@ -1,3 +1,9 @@
+## 1.0.5 / 2019.07.03
+
+#### Enhancement
+
+- Adding option to generate XML for crappy XML parsers (Does no use CDATA)
+
 ## 1.0.4 / 2019.06.20
 
 #### Fix
