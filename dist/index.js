@@ -49,12 +49,8 @@ crossref.register("submission_publish", function (item, settings) { return __awa
         switch (_a.label) {
             case 0:
                 parseText = settings.XMLParser === "crappy"
-                    ? function (text) {
-                        encodeURIComponent(text);
-                    }
-                    : function (text) {
-                        "<![CDATA[" + text + "]]>";
-                    };
+                    ? function (text) { return encodeURIComponent(text); }
+                    : function (text) { return "<![CDATA[" + text + "]]>"; };
                 return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, "template.xml"), "utf-8")];
             case 1:
                 template = _a.sent();
