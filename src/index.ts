@@ -10,12 +10,8 @@ const crossref = new FarolExtension(farolExtensionConfig);
 crossref.register("submission_publish", async (item: any, settings: any) => {
   const parseText =
     settings.XMLParser === "crappy"
-      ? (text: string) => {
-          encodeURIComponent(text);
-        }
-      : (text: string) => {
-          "<![CDATA[" + text + "]]>";
-        };
+      ? (text: string) => encodeURIComponent(text)
+      : (text: string) => "<![CDATA[" + text + "]]>";
   // Load and fill the doi document template
   const template = await fsPromises.readFile(
     path.resolve(__dirname, "template.xml"),

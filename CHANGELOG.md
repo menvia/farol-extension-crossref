@@ -1,3 +1,9 @@
+## 1.0.6 / 2019.07.03
+
+#### Fix
+
+- proper structuring one instruction function
+
 ## 1.0.5 / 2019.07.03
 
 #### Enhancement
