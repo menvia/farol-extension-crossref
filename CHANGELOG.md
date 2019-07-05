@@ -1,3 +1,9 @@
+## 1.0.7 / 2019.07.04
+
+#### Fix
+
+- improving crappy XML parser generator
+
 ## 1.0.6 / 2019.07.03
 
 #### Fix
