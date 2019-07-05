@@ -9,8 +9,14 @@ const crossref = new FarolExtension(farolExtensionConfig);
 
 crossref.register('submission_publish', async (item: any, settings: any) => {
   const parseText = (text: string, textKey: string) =>
-    settings.XMLParser === 'crappy'
-      ? `{{{${textKey}}}}`
+    settings.XMLParser === 'crappy' &&
+    [
+      'CONFERENCE_NAME',
+      'CONFERENCE_ACRONYM',
+      'PROCEEDINGS_TITLE',
+      'PAPER_TITLE',
+    ].includes(textKey)
+      ? `{{${textKey}}}`
       : `<![CDATA[${text}]]>`;
   // Load and fill the doi document template
   const template = await fsPromises.readFile(
@@ -58,7 +64,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
       PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
       PAPER_TITLE: item.title,
     };
-    crossrefDoc = Mustache.render(template, crappyContext);
+    crossrefDoc = Mustache.render(crossrefDoc, crappyContext);
   }
 
   // Build the parameters to the crossref service

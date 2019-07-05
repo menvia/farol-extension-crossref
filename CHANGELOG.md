@@ -1,3 +1,9 @@
+## 1.0.8 / 2019.07.05
+
+#### Fix
+
+- improving encoder for crappy XML parser
+
 ## 1.0.7 / 2019.07.04
 
 #### Fix
