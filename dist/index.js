@@ -41,7 +41,7 @@ var path = require("path");
 var request = require("request-promise");
 var extension_kit_1 = require("@farol/extension-kit");
 var fs_1 = require("fs");
-var farolExtensionConfig = require('../farol-extension');
+var farolExtensionConfig = require("./farol-extension.json");
 var crossref = new extension_kit_1.FarolExtension(farolExtensionConfig);
 crossref.register('submission_publish', function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
     var parseText, template, context, crossrefDoc, crappyContext, fileName, formData, options, result, result;
@@ -75,13 +75,13 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     AUTHORS: [],
                     DOI: settings.prefix + '/' + item._id.toString(),
-                    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
+                    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
                 };
                 context.AUTHORS = item.author.map(function (author, index) { return ({
                     SEQUENCE: index === 0 ? 'first' : 'additional',
                     ROLE: author.authoring_role,
                     FIRSTNAME: author.name.split(',')[1],
-                    LASTNAME: author.name.split(',')[0]
+                    LASTNAME: author.name.split(',')[0],
                 }); });
                 crossrefDoc = Mustache.render(template, context);
                 if (settings.XMLParser === 'crappy') {
@@ -89,7 +89,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                         CONFERENCE_NAME: item.event.name,
                         CONFERENCE_ACRONYM: item.event.short_name,
                         PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
-                        PAPER_TITLE: item.title
+                        PAPER_TITLE: item.title,
                     };
                     crossrefDoc = Mustache.render(template, crappyContext);
                 }
@@ -99,8 +99,8 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     value: crossrefDoc,
                     options: {
                         filename: fileName,
-                        contentType: 'text/xml'
-                    }
+                        contentType: 'text/xml',
+                    },
                 };
                 options = {
                     method: 'POST',
@@ -108,12 +108,12 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                     qs: {
                         operation: 'doMDUpload',
                         login_id: settings.login,
-                        login_passwd: settings.password
+                        login_passwd: settings.password,
                     },
                     headers: {
-                        'Content-Type': 'multipart/form-data;'
+                        'Content-Type': 'multipart/form-data;',
                     },
-                    formData: formData
+                    formData: formData,
                 };
                 if (!(settings.test === 'false')) return [3 /*break*/, 3];
                 return [4 /*yield*/, request(options)];

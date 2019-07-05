@@ -3,8 +3,8 @@ import * as path from 'path';
 import * as request from 'request-promise';
 import { FarolExtension } from '@farol/extension-kit';
 import { promises as fsPromises } from 'fs';
+import * as farolExtensionConfig from './farol-extension.json';
 
-const farolExtensionConfig = require('../farol-extension');
 const crossref = new FarolExtension(farolExtensionConfig);
 
 crossref.register('submission_publish', async (item: any, settings: any) => {
@@ -15,7 +15,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
   // Load and fill the doi document template
   const template = await fsPromises.readFile(
     path.resolve(__dirname, 'template.xml'),
-    'utf-8'
+    'utf-8',
   );
   const context = {
     DOI_BATCH_ID: item._id.toString(),
@@ -28,7 +28,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     CONFERENCE_DATE: item.event.start_on,
     PROCEEDINGS_TITLE: parseText(
       'Proceedings ' + item.event.name,
-      'PROCEEDINGS_TITLE'
+      'PROCEEDINGS_TITLE',
     ),
     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
     PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
@@ -39,14 +39,14 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
     AUTHORS: [],
     DOI: settings.prefix + '/' + item._id.toString(),
-    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
+    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString(),
   };
 
   context.AUTHORS = item.author.map((author: any, index: number) => ({
     SEQUENCE: index === 0 ? 'first' : 'additional',
     ROLE: author.authoring_role,
     FIRSTNAME: author.name.split(',')[1],
-    LASTNAME: author.name.split(',')[0]
+    LASTNAME: author.name.split(',')[0],
   }));
 
   let crossrefDoc = Mustache.render(template, context);
@@ -56,7 +56,7 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
       CONFERENCE_NAME: item.event.name,
       CONFERENCE_ACRONYM: item.event.short_name,
       PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
-      PAPER_TITLE: item.title
+      PAPER_TITLE: item.title,
     };
     crossrefDoc = Mustache.render(template, crappyContext);
   }
@@ -68,8 +68,8 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     value: crossrefDoc,
     options: {
       filename: fileName,
-      contentType: 'text/xml'
-    }
+      contentType: 'text/xml',
+    },
   };
   const options = {
     method: 'POST',
@@ -77,12 +77,12 @@ crossref.register('submission_publish', async (item: any, settings: any) => {
     qs: {
       operation: 'doMDUpload',
       login_id: settings.login,
-      login_passwd: settings.password
+      login_passwd: settings.password,
     },
     headers: {
-      'Content-Type': 'multipart/form-data;'
+      'Content-Type': 'multipart/form-data;',
     },
-    formData: formData
+    formData: formData,
   };
 
   // Call the result

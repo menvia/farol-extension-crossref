@@ -1,0 +1,13 @@
+{
+    "id": "a2b4ad7e-4ea3-4047-9432-a656836ce24c",
+    "name": "Crossref Integration",
+    "description": {
+        "en": "Farol Extension to integrate with Crossref services",
+        "pt": "Extensão do Farol para integrar com os serviços do Crossref",
+        "es": "Extensión de Farol para integrarse con los servicios de Crossref"
+    },
+    "icon": "icon.png",
+    "type": "submission",
+    "schema": [],
+    "triggers": ["submission_publish"]
+}
