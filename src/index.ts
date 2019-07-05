@@ -1,9 +1,9 @@
 import * as Mustache from 'mustache';
+import * as farolExtensionConfig from './farol-extension.json';
 import * as path from 'path';
 import * as request from 'request-promise';
 import { FarolExtension } from '@farol/extension-kit';
 import { promises as fsPromises } from 'fs';
-import * as farolExtensionConfig from './farol-extension.json';
 
 const crossref = new FarolExtension(farolExtensionConfig);
 

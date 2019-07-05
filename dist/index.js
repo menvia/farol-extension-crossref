@@ -37,11 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Mustache = require("mustache");
+var farolExtensionConfig = require("./farol-extension.json");
 var path = require("path");
 var request = require("request-promise");
 var extension_kit_1 = require("@farol/extension-kit");
 var fs_1 = require("fs");
-var farolExtensionConfig = require("./farol-extension.json");
 var crossref = new extension_kit_1.FarolExtension(farolExtensionConfig);
 crossref.register('submission_publish', function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
     var parseText, template, context, crossrefDoc, crappyContext, fileName, formData, options, result, result;
