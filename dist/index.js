@@ -41,17 +41,19 @@ var path = require("path");
 var request = require("request-promise");
 var extension_kit_1 = require("@farol/extension-kit");
 var fs_1 = require("fs");
-var farolExtensionConfig = require("../farol-extension");
+var farolExtensionConfig = require('../farol-extension');
 var crossref = new extension_kit_1.FarolExtension(farolExtensionConfig);
-crossref.register("submission_publish", function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
-    var parseText, template, context, crossrefDoc, fileName, formData, options, result, result;
+crossref.register('submission_publish', function (item, settings) { return __awaiter(_this, void 0, void 0, function () {
+    var parseText, template, context, crossrefDoc, crappyContext, fileName, formData, options, result, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                parseText = settings.XMLParser === "crappy"
-                    ? function (text) { return encodeURIComponent(text); }
-                    : function (text) { return "<![CDATA[" + text + "]]>"; };
-                return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, "template.xml"), "utf-8")];
+                parseText = function (text, textKey) {
+                    return settings.XMLParser === 'crappy'
+                        ? "{{{" + textKey + "}}}"
+                        : "<![CDATA[" + text + "]]>";
+                };
+                return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, 'template.xml'), 'utf-8')];
             case 1:
                 template = _a.sent();
                 context = {
@@ -60,59 +62,68 @@ crossref.register("submission_publish", function (item, settings) { return __awa
                     DEPOSITOR_NAME: settings.depositorName,
                     DEPOSITOR_EMAIL: settings.depositorEmail,
                     REGISTRANT: settings.registrant,
-                    CONFERENCE_NAME: parseText(item.event.name),
-                    CONFERENCE_ACRONYM: parseText(item.event.short_name),
+                    CONFERENCE_NAME: parseText(item.event.name, 'CONFERENCE_NAME'),
+                    CONFERENCE_ACRONYM: parseText(item.event.short_name, 'CONFERENCE_ACRONYM'),
                     CONFERENCE_DATE: item.event.start_on,
-                    PROCEEDINGS_TITLE: parseText("Proceedings " + item.event.name),
+                    PROCEEDINGS_TITLE: parseText('Proceedings ' + item.event.name, 'PROCEEDINGS_TITLE'),
                     PROCEEDINGS_PUBLISHER_NAME: settings.proceedingsPublisherName,
                     PROCEEDINGS_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     PROCEEDINGS_ISBN: item.event.isbn
-                        ? "<isbn>" + item.event.isbn + "</isbn>"
+                        ? '<isbn>' + item.event.isbn + '</isbn>'
                         : '<noisbn reason="archive_volume" />',
-                    PAPER_TITLE: parseText(item.title),
+                    PAPER_TITLE: parseText(item.title, 'PAPER_TITLE'),
                     PAPER_PUBLICATION_YEAR: new Date(item.event.start_on).getFullYear(),
                     AUTHORS: [],
-                    DOI: settings.prefix + "/" + item._id.toString(),
-                    DOI_RESOURCE: settings.doiResourceHost + "/" + item._id.toString()
+                    DOI: settings.prefix + '/' + item._id.toString(),
+                    DOI_RESOURCE: settings.doiResourceHost + '/' + item._id.toString()
                 };
                 context.AUTHORS = item.author.map(function (author, index) { return ({
-                    SEQUENCE: index === 0 ? "first" : "additional",
+                    SEQUENCE: index === 0 ? 'first' : 'additional',
                     ROLE: author.authoring_role,
-                    FIRSTNAME: author.name.split(",")[1],
-                    LASTNAME: author.name.split(",")[0]
+                    FIRSTNAME: author.name.split(',')[1],
+                    LASTNAME: author.name.split(',')[0]
                 }); });
                 crossrefDoc = Mustache.render(template, context);
+                if (settings.XMLParser === 'crappy') {
+                    crappyContext = {
+                        CONFERENCE_NAME: item.event.name,
+                        CONFERENCE_ACRONYM: item.event.short_name,
+                        PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
+                        PAPER_TITLE: item.title
+                    };
+                    crossrefDoc = Mustache.render(template, crappyContext);
+                }
                 fileName = item._id + ".xml";
                 formData = {};
-                formData["fname"] = {
+                formData['fname'] = {
                     value: crossrefDoc,
                     options: {
                         filename: fileName,
-                        contentType: "text/xml"
+                        contentType: 'text/xml'
                     }
                 };
                 options = {
-                    method: "POST",
-                    url: "https://doi.crossref.org/servlet/deposit",
+                    method: 'POST',
+                    url: 'https://doi.crossref.org/servlet/deposit',
                     qs: {
-                        operation: "doMDUpload",
+                        operation: 'doMDUpload',
                         login_id: settings.login,
                         login_passwd: settings.password
                     },
                     headers: {
-                        "Content-Type": "multipart/form-data;"
+                        'Content-Type': 'multipart/form-data;'
                     },
                     formData: formData
                 };
-                if (!(settings.test === "false")) return [3 /*break*/, 3];
+                if (!(settings.test === 'false')) return [3 /*break*/, 3];
                 return [4 /*yield*/, request(options)];
             case 2:
                 result = _a.sent();
                 console.log(result);
                 return [3 /*break*/, 6];
             case 3:
-                if (!(settings.test === "remote")) return [3 /*break*/, 5];
-                options.url = "https://test.crossref.org/servlet/deposit";
+                if (!(settings.test === 'remote')) return [3 /*break*/, 5];
+                options.url = 'https://test.crossref.org/servlet/deposit';
                 return [4 /*yield*/, request(options)];
             case 4:
                 result = _a.sent();
