@@ -7,6 +7,30 @@ import { promises as fsPromises } from "fs";
 const farolExtensionConfig = require("../farol-extension");
 const crossref = new FarolExtension(farolExtensionConfig);
 
+interface EntityMap {
+  "&": string;
+  "<": string;
+  ">": string;
+  '"': string;
+  "'": string;
+  "/": string;
+}
+
+const entityMap: EntityMap = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+  "/": "&#x2F;",
+};
+
+function escapeHtml(source: string) {
+  return String(source).replace(/[&<>"'\/]/g, (s: string) => {
+    return entityMap[s];
+  });
+}
+
 crossref.register("submission_publish", async (item: any, settings: any) => {
   const parseText =
     settings.XMLParser === "crappy"
