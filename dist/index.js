@@ -49,8 +49,14 @@ crossref.register('submission_publish', function (item, settings) { return __awa
         switch (_a.label) {
             case 0:
                 parseText = function (text, textKey) {
-                    return settings.XMLParser === 'crappy'
-                        ? "{{{" + textKey + "}}}"
+                    return settings.XMLParser === 'crappy' &&
+                        [
+                            'CONFERENCE_NAME',
+                            'CONFERENCE_ACRONYM',
+                            'PROCEEDINGS_TITLE',
+                            'PAPER_TITLE',
+                        ].includes(textKey)
+                        ? "{{" + textKey + "}}"
                         : "<![CDATA[" + text + "]]>";
                 };
                 return [4 /*yield*/, fs_1.promises.readFile(path.resolve(__dirname, 'template.xml'), 'utf-8')];
@@ -91,7 +97,7 @@ crossref.register('submission_publish', function (item, settings) { return __awa
                         PROCEEDINGS_TITLE: 'Proceedings ' + item.event.name,
                         PAPER_TITLE: item.title,
                     };
-                    crossrefDoc = Mustache.render(template, crappyContext);
+                    crossrefDoc = Mustache.render(crossrefDoc, crappyContext);
                 }
                 fileName = item._id + ".xml";
                 formData = {};
