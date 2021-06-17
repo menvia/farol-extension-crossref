@@ -32,7 +32,7 @@
   "dependencies": {
     "@farol/extension-kit": "0.0.5",
     "mustache": "^3.0.1",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
